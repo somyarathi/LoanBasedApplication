@@ -1,0 +1,42 @@
+<head>
+  <title>LoanBasedApplication</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+</head>
+
+<body>
+  <!--<div id="react-target"></div>-->
+  <div class="container">
+    <h1>Login Form</h1>
+    <form id="loginForm" action="#" method="post" onsubmit="redirectToSelectedPage(event)">
+        <label for="email">Email:</label>
+        <input type="email" id="email" name="email" required>
+
+        <label for="password">Password:</label>
+        <input type="password" id="password" name="password" required>
+
+        <label for="id">Choose ID:</label>
+        <select id="id" name="id" required>
+            <option value="admin">admin</option>
+            <option value="borrower">borrower</option>
+            <option value="lender">lender</option>
+        </select>
+
+        <br><br>
+        <input type="submit" value="Login">
+    </form>
+</div>
+
+<script>
+    function redirectToSelectedPage(event) {
+        event.preventDefault(); // Prevent the form from submitting
+        var selectedId = document.getElementById('id').value;
+        if (selectedId === 'admin') {
+            window.location.href = 'admin.html'; 
+        } else if (selectedId === 'borrower') {
+            window.location.href = 'borrower.html'; 
+        } else if (selectedId === 'lender') {
+            window.location.href = 'lender.html'; 
+        }
+    }
+</script>
+</body>

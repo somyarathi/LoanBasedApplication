@@ -1,0 +1,141 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Lender Dashboard</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            margin: 0;
+            padding: 0;
+            background-color: #f5f5f5;
+        }
+
+        .container {
+            max-width: 800px;
+            margin: 20px auto;
+            background-color: #fff;
+            padding: 20px;
+            box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+        }
+
+        h1, h2 {
+            color: #333;
+        }
+
+        form {
+            margin-top: 20px;
+        }
+
+        label {
+            display: block;
+            margin-bottom: 8px;
+        }
+
+        input[type="text"],
+        input[type="number"],
+        input[type="submit"] {
+            width: 100%;
+            padding: 10px;
+            margin-bottom: 15px;
+            border: 1px solid #ccc;
+            border-radius: 4px;
+            box-sizing: border-box;
+        }
+
+        input[type="submit"] {
+            background-color: #4caf50;
+            color: #fff;
+            cursor: pointer;
+        }
+
+        input[type="submit"]:hover {
+            background-color: #45a049;
+        }
+
+        ul {
+            list-style: none;
+            padding: 0;
+            margin: 0;
+        }
+
+        li {
+            margin-bottom: 10px;
+        }
+    </style>
+</head>
+<body>
+
+<div class="container">
+    <h1>Lender Dashboard</h1>
+
+    <!-- Role Selection Form -->
+    <h2>Pick a Role</h2>
+    <form id="roleSelectionForm" action="#" method="post" onsubmit="confirmRole(event)">
+        <label for="role">Select Role:</label>
+        <select id="role" name="role" required>
+            <option value="lender">Lender</option>
+        </select>
+
+        <input type="submit" value="Confirm Role">
+    </form>
+
+    <!-- Loan Payment Confirmation Form -->
+    <h2>Confirm Loan Payment</h2>
+    <form id="loanPaymentForm" action="#" method="post" onsubmit="confirmLoanPayment(event)">
+        <label for="loanAmount">Loan Amount:</label>
+        <input type="number" id="loanAmount" name="loanAmount" required>
+
+        <input type="submit" value="Confirm Payment">
+    </form>
+
+    <!-- Past Payments Section -->
+    <h2>Past Payments</h2>
+    <ul id="pastPaymentsList"></ul>
+</div>
+
+<script>
+    //data for past payments
+    const pastPaymentsData = [
+        { id: 1, amount: 5000, status: 'Paid' },
+        { id: 2, amount: 10000, status: 'Paid' },
+        { id: 3, amount: 7500, status: 'Pending' }
+    ];
+
+    // Display past payments on page load
+    window.onload = displayPastPayments;
+
+    function displayPastPayments() {
+        const pastPaymentsList = document.getElementById('pastPaymentsList');
+        pastPaymentsList.innerHTML = ''; // Clear previous content
+
+        pastPaymentsData.forEach(payment => {
+            const listItem = document.createElement('li');
+            listItem.textContent = `Payment ID: ${payment.id}, Amount: $${payment.amount}, Status: ${payment.status}`;
+            pastPaymentsList.appendChild(listItem);
+        });
+    }
+
+    function confirmRole(event) {
+        event.preventDefault(); // Prevent the form from submitting
+        alert("Role Confirmed as Lender!");
+    }
+
+    function confirmLoanPayment(event) {
+        event.preventDefault(); // Prevent the form from submitting
+
+        // Get form values
+        const loanAmount = document.getElementById('loanAmount').value;
+
+        //for processing loan payment confirmation
+        const newPayment = { id: pastPaymentsData.length + 1, amount: loanAmount, status: 'Paid' };
+        pastPaymentsData.push(newPayment);
+
+        // Display updated past payments
+        displayPastPayments();
+    }
+</script>
+
+</body>
+</html>
